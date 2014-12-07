@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# boosta_view
+# Uses rofi or dmenu to select a bookmark and open the page in your browser
+# Author: http://okraits.de okraits@arcor.de
+
+# SETTINGS
+launcher='/usr/bin/rofi -dmenu -p Bookmarks:'
+browser='/home/okraits/bin/lariza'
+bookmarks="$HOME/.bookmarks"
+
+url=`cat $bookmarks | $launcher | awk -F '|' '{print $3}' | tr -d '\r\n'`
+$browser $url

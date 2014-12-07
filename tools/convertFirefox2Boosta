@@ -1,0 +1,43 @@
+#!/usr/bin/python
+
+# convert bookmarks.html exported from firefox to boosta bookmarks format
+# Author: http://okraits.de okraits@arcor.de
+
+from os import getenv
+
+# SETTINGS
+ff_path = 'bookmarks.html'
+raw_path = getenv("HOME") + '/.bookmarks'
+
+# global variables
+ff_file = None # firefox bookmarks file object
+raw_file = None # boosta bookmarks file object
+raw_string = "" # the generated html code containing the bookmarks
+current_category = ""
+
+if __name__ == "__main__":
+
+    # open firefox bookmarks file and generate boosta string for all bookmarks
+    try:
+        ff_file = open(ff_path, 'r')
+    except IOError:
+        print("Error: firefox bookmarks file could not be opened.")
+        exit(1)
+    for line in ff_file:
+        if line.find('<H3') != -1: # line with a folder name
+            current_category = line[line.find('">')+2:line.find('</H3>')]
+        elif line.find('HREF="') != -1: # line with a bookmark
+            url = line[line.find('HREF="')+6:line.find('" ADD_DATE')]
+            title = line[line.rfind('">')+2:line.find('</A>')]
+            raw_string += current_category + '|' + title + '|' + url + '\n'
+    ff_file.close()
+
+    try:
+        raw_file = open(raw_path, 'w')
+    except IOError:
+        print("Error: boosta bookmarks file could not be opened.")
+        exit(1)
+    raw_file.write(raw_string)
+    raw_file.flush()
+    raw_file.close()
+    exit(0)

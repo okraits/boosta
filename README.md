@@ -2,6 +2,15 @@
 
 #### Easy bookmark management
 
+### Features
+
+- Browser independent
+- Store your bookmarks in a simple textfile
+- TODO: Manage your bookmarks with simple scripts
+- Use rofi or dmenu to search and open bookmarks in your browser
+- Convert your bookmarks.html file exported from Firefox to a boosta bookmarks file
+- TODO: Easily generate a html file of your bookmarks
+
 ### Requirements
 
 boosta has the following requirements:

@@ -3,11 +3,9 @@
 # convert bookmarks.html exported from firefox to boosta bookmarks format
 # Author: http://okraits.de okraits@arcor.de
 
-from os import getenv
-
 # SETTINGS
 ff_path = 'bookmarks.html'
-raw_path = getenv("HOME") + '/.bookmarks'
+raw_path = 'bookmarks'
 
 # global variables
 ff_file = None # firefox bookmarks file object

@@ -7,7 +7,7 @@
 if [ -f $HOME/.config/boosta/config ]; then
   source $HOME/.config/boosta/config
 else
-  LAUNCHER='rofi -dmenu -p Bookmarks:'
+  LAUNCHER='rofi -dmenu -i -p Bookmarks:'
   BROWSER='firefox'
   BOOKMARKS="$HOME/.config/boosta/bookmarks"
 fi

@@ -14,7 +14,7 @@
 
 boosta has the following requirements:
 
-- Python 2 or 3
+- Python 2 or 3 (for the convertFirefox2Boosta script)
 - rofi or dmenu
 
 ### Usage

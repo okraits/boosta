@@ -43,4 +43,3 @@ GNU General Public License v2:
 - change delimiter
 - add, edit and delete bookmark
 - generate a html file of the bookmarks
-- improve escaping of variables in boosta-> be able to include i3-color-rofi in BROWSER

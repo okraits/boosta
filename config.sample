@@ -1,4 +1,4 @@
 # configuration for boosta bookmark tool
-LAUNCHER="rofi -dmenu -i -l 40 -p Bookmarks:"
+LAUNCHER="rofi -dmenu -i -l 40 -p"
 BROWSER="firefox"
 BOOKMARKS="$HOME/.config/boosta/bookmarks"

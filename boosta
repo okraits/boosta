@@ -3,11 +3,25 @@
 # boosta: easy bookmark management
 
 # variables
-USAGE="Boosta keys: <span font_weight='bold'>Alt+o</span>: open bookmark | <span font_weight='bold'>Alt+n</span>: add bookmark"
-KEYS="-kb-custom-1 Alt+o -kb-custom-2 Alt+n"
+USAGE="Boosta keys: <span font_weight='bold'>Alt+o</span>: open bookmark | <span font_weight='bold'>Alt+n</span>: add bookmark | <span font_weight='bold'>Alt+d</span>: delete bookmark"
+KEYS="-kb-custom-1 Alt+o -kb-custom-2 Alt+n -kb-custom-3 Alt+d"
 
 # function definitions
 ######################
+function openBookmark()
+{
+    output=$(cat $BOOKMARKS | $LAUNCHER Bookmarks: -mesg "$USAGE" $KEYS)
+    retval=$?
+    # return if a special keycombo was pressed
+    [ $retval -ne 0 ] && return $retval
+    # extract url and open it in the specified browser
+    url=$(echo $output | awk -F '|' '{printf("%s ", $NF)}' | tr -d '\r\n')
+    if [ ${#url} -gt 0 ]
+    then
+        $BROWSER $url
+    fi
+}
+
 function addBookmark()
 {
     # get window title from xprop, to pre-fill the title dialog
@@ -35,19 +49,20 @@ function addBookmark()
     mv /tmp/bookmarks_sorted "$BOOKMARKS"
 }
 
-function openBookmark()
+function deleteBookmark()
 {
     output=$(cat $BOOKMARKS | $LAUNCHER Bookmarks: -mesg "$USAGE" $KEYS)
     retval=$?
     # return if a special keycombo was pressed
     [ $retval -ne 0 ] && return $retval
-    # extract url and open it in the specified browser
-    url=$(echo $output | awk -F '|' '{printf("%s ", $NF)}' | tr -d '\r\n')
-    if [ ${#url} -gt 0 ]
-    then
-        $BROWSER $url
-    fi
+    # ask for confirmation to delete the selected bookmark
+    confirm=$(echo -e "[Y]es\n[N]o" | $LAUNCHER 'Do you really want to delete the following bookmark:' -mesg "$output" $KEYS)
+    retval=$?
+    ( [ $retval -ne 0 ] || [ "$confirm" != "[Y]es" ] ) && return $retval
+    grep -v -F "$output" "$BOOKMARKS" > /tmp/bookmarks_deleted
+    mv /tmp/bookmarks_deleted "$BOOKMARKS"
 }
+
 
 # script execution starts here
 ##############################
@@ -78,6 +93,10 @@ do
       ;;
     11)
       addBookmark
+      retval=$?
+      ;;
+    12)
+      deleteBookmark
       retval=$?
       ;;
   esac

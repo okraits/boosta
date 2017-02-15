@@ -37,6 +37,9 @@ Run *boosta*, then you can switch between the following modes:
   * The title of the previous window (probably the browser window) is inserted as the default value for the title.
   * You might want to copy the url to the clipboard before running boosta and insert it then with `Shift+Insert`.
   * Press `Ctrl+Enter` to use the entered text and not the selected entry as input.
+* `Alt+d` **delete bookmark**
+  * start to type a tag, a title or an url and press `Enter` when you found the bookmark to delete.
+  * Confirm the deletion of the selected bookmark by selecting `[Y]es` and pressing `Enter`.
 
 ### License
 
@@ -47,5 +50,5 @@ GNU General Public License v2:
 
 ### TODO
 - change delimiter
-- edit and delete bookmark
+- edit bookmark
 - generate a html file of the bookmarks
